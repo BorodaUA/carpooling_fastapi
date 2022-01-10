@@ -1,0 +1,34 @@
+version: "3"
+services:
+  postgres_server:
+    image: postgres:13
+    restart: always
+    env_file:
+      - ./postgres_server/.env
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+  redis_server:
+    image: redis:6.2-alpine
+    restart: always
+    env_file:
+      - ./redis_server/.env
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/var/lib/redis
+  carpooling_api_server:
+    build: ./carpooling_api_server
+    restart: always
+    ports:
+      - "4500:4500"
+    volumes:
+      - ./carpooling_api_server:/usr/src/app
+    depends_on:
+      - postgres_server
+      - redis_server
+volumes:
+  pgdata:
+  redis_data:
+

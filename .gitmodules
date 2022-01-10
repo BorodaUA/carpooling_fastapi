@@ -1,0 +1,3 @@
+[submodule "carpooling_api_server"]
+	path = carpooling_api_server
+	url = https://github.com/BorodaUA/carpooling_api_server.git
